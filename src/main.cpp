@@ -1,7 +1,10 @@
-#include<iostream>
-using namespace std;
+#include "clipboard/clipboard.h"
 
 int main(){
-    cout<<"CopyLine Project Starts";
+
+    clipBoardCopy();
+    clipBoardPaste();
+
     return 0;
+    
 }
