@@ -1,7 +1,10 @@
 #include "clipboard.h"
 #include<windows.h>
+#include <deque>
 #include<iostream>
 
+
+std::deque<std::string> copyQueue;
 
 
 int clipBoardCopy(){
@@ -36,12 +39,32 @@ int clipBoardCopy(){
     CloseClipboard();
 
     std::string text(ws.begin(),ws.end());
-    
-    
-    return 0;   
 
+    return 0;   
 }
 int clipBoardPaste(){
+
+    std::string pastingText = "";
+
+    for(std::string str: copyQueue){
+        pastingText += str + "\n";
+    }
    
+    if(!OpenClipboard(NULL)){
+        std::cout<<"Failed To Open Clipboard\n";
+        return 1;
+    }
+
+    EmptyClipboard();
+
+    HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE,(pastingText.size()+1));
+    char* memoryPointer = static_cast<char*>(GlobalLock(hMem));
+
+    strcpy(memoryPointer,pastingText.c_str());
+    GlobalUnlock(hMem);
+    SetClipboardData(CF_TEXT,hMem);
+    CloseClipboard();
+
+    return 0;
 
 }
