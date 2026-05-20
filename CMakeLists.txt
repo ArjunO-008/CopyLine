@@ -8,4 +8,5 @@ add_executable(
     CopyLine
     src/main.cpp
     src/clipboard/clipboard.cpp
+    src/queue/queue.cpp
 )

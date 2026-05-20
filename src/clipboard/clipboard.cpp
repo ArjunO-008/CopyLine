@@ -1,10 +1,7 @@
 #include "clipboard.h"
 #include<windows.h>
-#include <deque>
 #include<iostream>
 
-
-std::deque<std::string> copyQueue;
 
 
 int clipBoardCopy(){
@@ -46,9 +43,9 @@ int clipBoardPaste(){
 
     std::string pastingText = "";
 
-    for(std::string str: copyQueue){
-        pastingText += str + "\n";
-    }
+    // for(std::string str: copyQueue){
+    //     pastingText += str + "\n";
+    // }
    
     if(!OpenClipboard(NULL)){
         std::cout<<"Failed To Open Clipboard\n";
