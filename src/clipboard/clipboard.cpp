@@ -1,4 +1,5 @@
 #include "clipboard.h"
+#include "../queue/queue.h"
 #include<windows.h>
 #include<iostream>
 
@@ -37,15 +38,17 @@ int clipBoardCopy(){
 
     std::string text(ws.begin(),ws.end());
 
+    pushToQueue(text);
+
     return 0;   
 }
 int clipBoardPaste(){
 
     std::string pastingText = "";
 
-    // for(std::string str: copyQueue){
-    //     pastingText += str + "\n";
-    // }
+    for(std::string str: getQueue()){
+        pastingText += str + "\n";
+    }    
    
     if(!OpenClipboard(NULL)){
         std::cout<<"Failed To Open Clipboard\n";
@@ -59,7 +62,7 @@ int clipBoardPaste(){
 
     strcpy(memoryPointer,pastingText.c_str());
     GlobalUnlock(hMem);
-    SetClipboardData(CF_TEXT,hMem);
+    SetClipboardData(CF_UNICODETEXT,hMem);
     CloseClipboard();
 
     return 0;

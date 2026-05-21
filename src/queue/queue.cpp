@@ -4,5 +4,13 @@
 std::deque<std::string> copyQueue;
 
 void pushToQueue(std::string clipBoardtext){
-    copyQueue.push_back(clipBoardtext);
+
+   if(copyQueue.empty() || clipBoardtext != copyQueue.back()){
+        copyQueue.push_back(clipBoardtext);
+    }
+}
+
+
+std::deque<std::string> getQueue(){
+    return copyQueue;
 }
