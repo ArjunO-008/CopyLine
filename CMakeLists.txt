@@ -9,4 +9,5 @@ add_executable(
     src/main.cpp
     src/clipboard/clipboard.cpp
     src/queue/queue.cpp
+    src/input/input.cpp
 )
