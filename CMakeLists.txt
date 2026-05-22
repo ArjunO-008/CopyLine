@@ -11,4 +11,5 @@ add_executable(
     src/queue/queue.cpp
     src/input/input.cpp
     src/paste/paste.cpp
+    src/core/core.cpp
 )
