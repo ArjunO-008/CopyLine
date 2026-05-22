@@ -1,9 +1,8 @@
-#include "clipboard/clipboard.h"
+#include "./core/core.h"
 
 int main(){
 
-    clipBoardCopy();
-
+    startApp();
     return 0;
     
 }
