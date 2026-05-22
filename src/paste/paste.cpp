@@ -30,4 +30,5 @@ int singleElementPaste(){
         removeQueueElement();
         return setClipBoardText(text);
     }
+    return 0;
 }

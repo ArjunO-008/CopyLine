@@ -3,7 +3,6 @@
 int main(){
 
     clipBoardCopy();
-    clipBoardPaste();
 
     return 0;
     
