@@ -8,9 +8,10 @@ bool isCopyLineToggledOn = true;
 int startApp(){
 
     while (isCopyLineToggledOn){
+       
         if(copyKeyTrigger({VK_LCONTROL,'C'})){
-            Sleep(100);
             clipBoardCopy();
+            Sleep(500);
         }
         if(copyKeyTrigger({VK_LCONTROL,'V'})){
             newLineAllPaste();            
