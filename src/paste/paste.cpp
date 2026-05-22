@@ -25,5 +25,9 @@ int sequentialAllPaste(){
 }
 
 int singleElementPaste(){
-
+    if(!getQueue().empty()){
+        std::string text = getQueue().front();
+        removeQueueElement();
+        return setClipBoardText(text);
+    }
 }
