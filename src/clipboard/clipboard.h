@@ -2,7 +2,7 @@
 #define CLIPBOARD_H
 
 int clipBoardCopy();
-int clipBoardPaste();
+int setClipBoardText(std::string text);
 
 
 #endif

@@ -42,29 +42,26 @@ int clipBoardCopy(){
 
     return 0;   
 }
-int clipBoardPaste(){
 
-    std::string pastingText = "";
-
-    for(std::string str: getQueue()){
-        pastingText += str + "\n";
-    }    
-   
+int setClipBoardText(std::string text){
     if(!OpenClipboard(NULL)){
-        std::cout<<"Failed To Open Clipboard\n";
         return 1;
     }
-
     EmptyClipboard();
 
-    HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE,(pastingText.size()+1));
-    char* memoryPointer = static_cast<char*>(GlobalLock(hMem));
+    HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE,text.size() + 1);
 
-    strcpy(memoryPointer,pastingText.c_str());
+    char* memoryPointer = static_cast<char*>(GlobalLock(hMem));
+    
+    strcpy(memoryPointer,text.c_str());
+
     GlobalUnlock(hMem);
+
     SetClipboardData(CF_UNICODETEXT,hMem);
+
     CloseClipboard();
 
     return 0;
+
 
 }
