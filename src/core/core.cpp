@@ -9,6 +9,7 @@ int startApp(){
 
     while (isCopyLineToggledOn){
         if(copyKeyTrigger({VK_LCONTROL,'C'})){
+            Sleep(100);
             clipBoardCopy();
         }
         if(copyKeyTrigger({VK_LCONTROL,'V'})){
