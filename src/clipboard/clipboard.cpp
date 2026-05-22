@@ -49,11 +49,13 @@ int setClipBoardText(std::string text){
     }
     EmptyClipboard();
 
-    HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE,text.size() + 1);
+    std::wstring ws(text.begin(),text.end());
 
-    char* memoryPointer = static_cast<char*>(GlobalLock(hMem));
+    HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE,ws.size() + 1);
+
+    wchar_t* memoryPointer = static_cast<wchar_t*>(GlobalLock(hMem));
     
-    strcpy(memoryPointer,text.c_str());
+    wcscpy(memoryPointer,ws.c_str());
 
     GlobalUnlock(hMem);
 
