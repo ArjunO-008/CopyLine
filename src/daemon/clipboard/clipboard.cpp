@@ -6,6 +6,7 @@
 
 
 int clipBoardCopy(){
+    // std::cout<<"ClipBoard Update!\n"<<std::flush;
 
     if(!OpenClipboard(NULL)){
         std::cout<<"Failed To Load ClipBoard\n";

@@ -1,12 +1,13 @@
 #include "windows.h"
 #include "core.h"
+#include "../clipboard/clipboard.h"
 
 HWND hwnd;
 
 LRESULT CALLBACK WindowProc(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam){
     switch(uMsg){
         case WM_CLIPBOARDUPDATE:
-
+            clipBoardCopy();
             return 0;
 
         case WM_DESTROY:
