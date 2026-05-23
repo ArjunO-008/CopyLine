@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(
     CopyLine
+    WIN32
     src/daemon/main.cpp
     src/daemon/clipboard/clipboard.cpp
     src/daemon/queue/queue.cpp

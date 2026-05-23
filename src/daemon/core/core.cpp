@@ -1,23 +1,47 @@
 #include "windows.h"
-#include "../input/input.h"
-#include "../clipboard/clipboard.h"
-#include "../paste/paste.h"
+#include "core.h"
 
-bool isCopyLineToggledOn = true;
+HWND hwnd;
 
-int startApp(){
+LRESULT CALLBACK WindowProc(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam){
+    switch(uMsg){
+        case WM_CLIPBOARDUPDATE:
 
-    while (isCopyLineToggledOn){
-       
-        if(copyKeyTrigger({VK_LCONTROL,'C'})){
-            clipBoardCopy();
-            Sleep(500);
-        }
-        if(copyKeyTrigger({VK_LCONTROL,'V'})){
-            newLineAllPaste();            
-        }
-        Sleep(100);
+            return 0;
+
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            return 0;
     }
-    
+    return DefWindowProc(hwnd,uMsg,wParam,lParam);
+}
+
+int startApp(HINSTANCE hInstance){
+
+    WNDCLASSW wc = {};
+    wc.lpfnWndProc = WindowProc;
+    wc.hInstance = hInstance;
+    wc.lpszClassName = L"CopyLineDaemon";
+    RegisterClassW(&wc);
+
+    hwnd = CreateWindowExW(
+        0, L"CopyLineDaemon", L"CopyLine",
+        0,0,0,0,0,
+        HWND_MESSAGE,
+        NULL,hInstance,NULL
+    );
+
+    if(!hwnd) return 1;
+
+    AddClipboardFormatListener(hwnd);
+
+    MSG msg;
+    while(GetMessage(&msg,NULL,0,0)){
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
+
+    RemoveClipboardFormatListener(hwnd);
     return 0;
+
 }
