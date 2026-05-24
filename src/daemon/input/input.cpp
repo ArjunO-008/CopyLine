@@ -8,8 +8,8 @@ LRESULT CALLBACK KeyBoardProc(int nCode, WPARAM wParam,LPARAM lParam){
         KBDLLHOOKSTRUCT* key = (KBDLLHOOKSTRUCT*)lParam;
 
         if(wParam == WM_KEYDOWN){
-            bool ctrl = GetAsyncKeyState(VK_CONTROL) ^ 0x8000;
-            bool shift = GetAsyncKeyState(VK_SHIFT) ^ 0x8000;
+            bool ctrl = GetAsyncKeyState(VK_CONTROL) & 0x8000;
+            bool shift = GetAsyncKeyState(VK_SHIFT) & 0x8000;
 
             if(ctrl && key->vkCode == 'L'){
                 onToggle();

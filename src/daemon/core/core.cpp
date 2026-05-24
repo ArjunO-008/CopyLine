@@ -7,10 +7,31 @@
 
 HWND hwnd;
 
+bool isActive = true;
+bool ignoredNextUpdate = false;
+
+void onToggle(){
+    isActive = !isActive;
+    std::cout<<"CopyLine: "<<(isActive ? "ON" : "OFF")<<"\n"<<std::flush;
+}
+
+void onPaste(){
+    if(isActive){
+        ignoredNextUpdate = true;
+        newLineAllPaste();
+    }
+}
+
 LRESULT CALLBACK WindowProc(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam){
     switch(uMsg){
         case WM_CLIPBOARDUPDATE:
-            clipBoardCopy();
+            if(ignoredNextUpdate){
+                ignoredNextUpdate = false;
+                return 0;
+            }
+            if(isActive){
+                clipBoardCopy();
+            }
             return 0;
 
         case WM_DESTROY:
@@ -50,17 +71,4 @@ int startApp(HINSTANCE hInstance){
     RemoveClipboardFormatListener(hwnd);
     return 0;
 
-}
-
-bool isActive = true;
-
-void onToggle(){
-    isActive = !isActive;
-    std::cout<<"CopyLine: "<<(isActive ? "ON" : "OFF")<<"\n"<<std::flush;
-}
-
-void onPaste(){
-    if(isActive){
-        newLineAllPaste();
-    }
 }
