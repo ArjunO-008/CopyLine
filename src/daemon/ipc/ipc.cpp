@@ -44,3 +44,32 @@ std::string handleCommand(const std::string& cmd){
 
     return "Unkown Command";
 }
+
+void startPipeServer(){
+    while(true){
+        HANDLE hPipe = CreateNamedPipeW(
+            PIPE_NAME,
+            PIPE_ACCESS_DUPLEX,
+            PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT,
+            1,BUFFER_SIZE,BUFFER_SIZE,0,NULL
+        );
+
+        if(hPipe == INVALID_HANDLE_VALUE) return;
+
+        ConnectNamedPipe(hPipe,NULL);
+
+        char buffer[BUFFER_SIZE];
+        DWORD bytesRead;
+        if(ReadFile(hPipe,buffer,BUFFER_SIZE - 1,&bytesRead,NULL)){
+            buffer[bytesRead] = '\0';
+            std::string cmd(buffer);
+
+            std::string response = handleCommand(cmd);
+            DWORD bytesWritten;
+            WriteFile(hPipe,response.c_str(),response.size(),&bytesWritten,NULL);
+        }
+
+        DisconnectNamedPipe(hPipe);
+        CloseHandle(hPipe);
+    }
+}
