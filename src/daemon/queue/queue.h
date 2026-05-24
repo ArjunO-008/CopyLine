@@ -7,6 +7,7 @@
 
 void pushToQueue(std::string clipBoardtext);
 void removeQueueElement();
+void clearQueue();
 std::deque<std::string> getQueue();
 
 #endif

@@ -6,7 +6,6 @@
 
 
 int clipBoardCopy(){
-    // std::cout<<"ClipBoard Update!\n"<<std::flush;
 
     if(!OpenClipboard(NULL)){
         std::cout<<"Failed To Load ClipBoard\n";
@@ -52,7 +51,7 @@ int setClipBoardText(std::string text){
 
     std::wstring ws(text.begin(),text.end());
 
-    HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE,ws.size() + 1);
+    HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE,(ws.size() + 1) * sizeof(wchar_t));
 
     wchar_t* memoryPointer = static_cast<wchar_t*>(GlobalLock(hMem));
     

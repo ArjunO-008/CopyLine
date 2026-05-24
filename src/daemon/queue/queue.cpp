@@ -1,3 +1,4 @@
+#include "queue.h"
 #include <deque>
 #include <string>
 
@@ -10,7 +11,6 @@ void pushToQueue(std::string clipBoardtext){
     }
 }
 
-
 std::deque<std::string> getQueue(){
     return copyQueue;
 }
@@ -19,4 +19,8 @@ void removeQueueElement(){
     if(!copyQueue.empty()){
         copyQueue.pop_front();
     }
+}
+
+void clearQueue(){
+    copyQueue.clear();
 }

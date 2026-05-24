@@ -3,6 +3,7 @@
 #include "../clipboard/clipboard.h"
 #include "../input/input.h"
 #include "../paste/paste.h"
+#include "../queue/queue.h"
 #include <iostream>
 
 HWND hwnd;
@@ -12,13 +13,13 @@ bool ignoredNextUpdate = false;
 
 void onToggle(){
     isActive = !isActive;
-    std::cout<<"CopyLine: "<<(isActive ? "ON" : "OFF")<<"\n"<<std::flush;
 }
 
 void onPaste(){
     if(isActive){
         ignoredNextUpdate = true;
         newLineAllPaste();
+        clearQueue();
     }
 }
 
