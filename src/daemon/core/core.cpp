@@ -4,6 +4,8 @@
 #include "../input/input.h"
 #include "../paste/paste.h"
 #include "../queue/queue.h"
+#include "../ipc/ipc.h"
+#include <thread>
 #include <iostream>
 
 HWND hwnd;
@@ -62,7 +64,10 @@ int startApp(HINSTANCE hInstance){
     AddClipboardFormatListener(hwnd);
 
     MSG msg;
-     registerHook();
+    registerHook();
+
+    std::thread pipeThread(startPipeServer);
+    pipeThread.detach();
     while(GetMessage(&msg,NULL,0,0)){
         TranslateMessage(&msg);
         DispatchMessage(&msg);
