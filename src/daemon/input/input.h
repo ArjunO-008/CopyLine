@@ -1,9 +1,9 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include <vector>
-
-int copyKeyTrigger(const std::vector<int>& keys);
-int pasteKeyTrigger(const std::vector<int>& keys);
+void registerHook();
+void unregisterHook();
+void onToggle();
+void onPaste();
 
 #endif

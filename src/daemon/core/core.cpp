@@ -1,6 +1,9 @@
 #include "windows.h"
 #include "core.h"
 #include "../clipboard/clipboard.h"
+#include "../input/input.h"
+#include "../paste/paste.h"
+#include <iostream>
 
 HWND hwnd;
 
@@ -37,12 +40,27 @@ int startApp(HINSTANCE hInstance){
     AddClipboardFormatListener(hwnd);
 
     MSG msg;
+     registerHook();
     while(GetMessage(&msg,NULL,0,0)){
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
 
+    unregisterHook();
     RemoveClipboardFormatListener(hwnd);
     return 0;
 
+}
+
+bool isActive = true;
+
+void onToggle(){
+    isActive = !isActive;
+    std::cout<<"CopyLine: "<<(isActive ? "ON" : "OFF")<<"\n"<<std::flush;
+}
+
+void onPaste(){
+    if(isActive){
+        newLineAllPaste();
+    }
 }

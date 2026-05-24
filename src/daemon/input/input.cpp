@@ -1,33 +1,36 @@
 #include <windows.h>
-#include <vector>
+#include "input.h"
 
-bool triggeredKeyPressed = false;
+HHOOK KeyboardHook = NULL;
 
-int keyTrigger(const std::vector<int>& keys){
+LRESULT CALLBACK KeyBoardProc(int nCode, WPARAM wParam,LPARAM lParam){
+    if(nCode == HC_ACTION){
+        KBDLLHOOKSTRUCT* key = (KBDLLHOOKSTRUCT*)lParam;
 
-    bool current = true;
+        if(wParam == WM_KEYDOWN){
+            bool ctrl = GetAsyncKeyState(VK_CONTROL) ^ 0x8000;
+            bool shift = GetAsyncKeyState(VK_SHIFT) ^ 0x8000;
 
-    for(int key: keys){
-        if(!(GetAsyncKeyState(key) & 0x8000)){
-            current = false;
+            if(ctrl && key->vkCode == 'L'){
+                onToggle();
+            }
+
+            if(ctrl && shift && key->vkCode == 'V'){
+                onPaste();
+            }
         }
     }
+    return CallNextHookEx(KeyboardHook,nCode,wParam,lParam);
+}
 
-    if(current && !triggeredKeyPressed){
-        triggeredKeyPressed = true;
-        return 1;
+void registerHook(){
+    KeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL,KeyBoardProc,NULL,0);
+}
+
+void unregisterHook(){
+    if(KeyboardHook){
+        UnhookWindowsHookEx(KeyboardHook);
+        KeyboardHook = NULL;
     }
-    if(!current){
-        triggeredKeyPressed = false;
-    }
-
-    return 0;
 }
 
-int copyKeyTrigger(const std::vector<int>& keys){
-   return keyTrigger(keys);
-}
-
-int pasteKeyTrigger(const std::vector<int>& keys){
-   return keyTrigger(keys);
-}
