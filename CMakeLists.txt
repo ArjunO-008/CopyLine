@@ -12,6 +12,9 @@ add_executable(
     src/daemon/input/input.cpp
     src/daemon/paste/paste.cpp
     src/daemon/core/core.cpp
-
     src/daemon/ipc/ipc.cpp
+)
+add_executable(
+    copyline-cli
+    src/cli/main.cpp
 )
