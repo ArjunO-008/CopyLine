@@ -1,4 +1,4 @@
-#ifndef QUEUE_h
+#ifndef QUEUE_H
 #define QUEUE_H
 
 #include <string>

@@ -1,4 +1,4 @@
-#ifndef CLIPBOARD_h
+#ifndef CLIPBOARD_H
 #define CLIPBOARD_H
 
 

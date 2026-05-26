@@ -1,4 +1,4 @@
-#ifndef PASTE_h
+#ifndef PASTE_H
 #define PASTE_H
 
 enum PasteStyle {NEWLINE,SEQUENTIAL,SINGLE};
