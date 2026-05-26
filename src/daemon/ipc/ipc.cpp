@@ -4,10 +4,12 @@
 #include "ipc.h"
 #include "../queue/queue.h"
 #include "../paste/paste.h"
+#include "../config/config.h"
 
 #define PIPE_NAME L"\\\\.\\pipe\\CopyLine"
 #define BUFFER_SIZE 512
 
+extern Config appConfig;
 extern bool isActive();
 void onToggle();
 
@@ -36,16 +38,22 @@ std::string handleCommand(const std::string& cmd){
 
     if(cmd == "set paste style newline"){
         currentPasteStyle = NEWLINE;
+        appConfig.pasteStyle = "newline";
+        saveConfig(appConfig);
         return "Paste Style Set To NewLine";
     }
 
     if(cmd == "set paste style sequential"){
         currentPasteStyle = SEQUENTIAL;
+        appConfig.pasteStyle = "sequential";
+        saveConfig(appConfig);
         return "Paste Style Set To Sequential";
     }
 
     if(cmd == "set paste style single"){
-        currentPasteStyle = SINGLE;;
+        currentPasteStyle = SINGLE;
+        appConfig.pasteStyle = "single";
+        saveConfig(appConfig);
         return "Paste Style Set To Single";
     }
 

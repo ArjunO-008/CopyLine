@@ -1,17 +1,19 @@
 #include "windows.h"
 #include "core.h"
+#include "../ipc/ipc.h"
 #include "../clipboard/clipboard.h"
 #include "../input/input.h"
 #include "../paste/paste.h"
 #include "../queue/queue.h"
-#include "../ipc/ipc.h"
 #include <thread>
 #include <iostream>
 
 HWND hwnd;
+Config appConfig;
 
 bool isActive = true;
 bool ignoredNextUpdate = false;
+
 
 void onToggle(){
     isActive = !isActive;
@@ -45,6 +47,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam){
 }
 
 int startApp(HINSTANCE hInstance){
+    appConfig = loadConfig();
+
+    if(appConfig.pasteStyle == "sequential") currentPasteStyle = SEQUENTIAL;
+    else if(appConfig.pasteStyle == "single") currentPasteStyle = SINGLE;
+    else currentPasteStyle = NEWLINE;
 
     WNDCLASSW wc = {};
     wc.lpfnWndProc = WindowProc;
