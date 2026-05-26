@@ -35,11 +35,18 @@ std::string handleCommand(const std::string& cmd){
     }
 
     if(cmd == "set paste style newline"){
+        currentPasteStyle = NEWLINE;
         return "Paste Style Set To NewLine";
     }
 
     if(cmd == "set paste style sequential"){
+        currentPasteStyle = SEQUENTIAL;
         return "Paste Style Set To Sequential";
+    }
+
+    if(cmd == "set paste style single"){
+        currentPasteStyle = SINGLE;;
+        return "Paste Style Set To Single";
     }
 
     return "Unkown Command";

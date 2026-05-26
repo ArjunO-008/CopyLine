@@ -20,7 +20,7 @@ void onToggle(){
 void onPaste(){
     if(isActive){
         ignoredNextUpdate = true;
-        newLineAllPaste();
+        pasteAll();
         clearQueue();
     }
 }
