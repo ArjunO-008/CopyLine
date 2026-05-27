@@ -1,6 +1,7 @@
 #include "config.h"
 #include<windows.h>
 #include<string>
+#include<vector>
 #include<iostream>
 
 std::string getConfigPath(){
@@ -36,6 +37,10 @@ Config loadConfig(){
     GetPrivateProfileStringA("paste","style","newline",buffer,256,path);
     config.pasteStyle = buffer;
 
+    config.copyKey = parseKeybind(config.copyKeyBind);
+    config.pasteKey = parseKeybind(config.pasteKeyBind);
+    config.togglKey = parseKeybind(config.toggleKeyBind);
+
     return config;
 }
 
@@ -47,4 +52,33 @@ void saveConfig(const Config& config){
     WritePrivateProfileStringA("keybindings","paste",config.pasteKeyBind.c_str(),path);
     WritePrivateProfileStringA("keybindings","toggle",config.toggleKeyBind.c_str(),path);
     WritePrivateProfileStringA("paste","style",config.pasteStyle.c_str(),path);
+}
+
+KeyBind parseKeybind(const std::string& keybind){
+    KeyBind kb = {false,false,false,0};
+
+    std::string token = "";
+    std::vector<std::string> parts;
+
+    for(char c : keybind){
+        if(c == '+'){
+            parts.push_back(token);
+            token = "";
+        }else {
+            token += c;
+        }
+    }
+    parts.push_back(token);
+
+    for(const std::string& part:parts){
+        if(part == "Ctrl") kb.ctrl = true;
+        else if(part == "Shift") kb.shift = true;
+        else if(part == "Alt") kb.alt = true;
+        else {
+            if(part.size() == 1){
+                kb.vkCode = toupper(part[0]);
+            }
+        }
+    }
+    return kb;
 }

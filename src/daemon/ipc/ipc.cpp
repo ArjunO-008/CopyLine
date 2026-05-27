@@ -63,9 +63,18 @@ std::string handleCommand(const std::string& cmd){
         std::string set, keybind, action, keys;
         ss>> set >> keybind >> action >> keys;
 
-        if(action == "copy") appConfig.copyKeyBind = keys;
-        if(action == "paste") appConfig.pasteKeyBind = keys;
-        if(action == "toggle") appConfig.toggleKeyBind = keys;
+        if(action == "copy"){
+          appConfig.copyKeyBind = keys;
+          appConfig.copyKey = parseKeybind(keys);  
+        } 
+        if(action == "paste"){
+          appConfig.pasteKeyBind = keys;
+          appConfig.pasteKey = parseKeybind(keys);  
+        } 
+        if(action == "toggle"){
+          appConfig.toggleKeyBind = keys;
+          appConfig.togglKey = parseKeybind(keys);  
+        } 
 
         saveConfig(appConfig);
         return "Keybind for "+ action + " Set To "+ keys +".";
