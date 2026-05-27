@@ -6,6 +6,7 @@
 #include "../queue/queue.h"
 #include "../paste/paste.h"
 #include "../config/config.h"
+#include "../core/core.h"
 
 #define PIPE_NAME L"\\\\.\\pipe\\CopyLine"
 #define BUFFER_SIZE 512
