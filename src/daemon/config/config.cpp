@@ -25,9 +25,6 @@ Config loadConfig(){
 
     char buffer[256];
 
-    GetPrivateProfileStringA("keybindings","copy","Ctrl+Shift+C",buffer,256,path);
-    config.copyKeyBind = buffer;
-
     GetPrivateProfileStringA("keybindings","paste","Ctrl+Shift+V",buffer,256,path);
     config.pasteKeyBind = buffer;
 
@@ -37,7 +34,6 @@ Config loadConfig(){
     GetPrivateProfileStringA("paste","style","newline",buffer,256,path);
     config.pasteStyle = buffer;
 
-    config.copyKey = parseKeybind(config.copyKeyBind);
     config.pasteKey = parseKeybind(config.pasteKeyBind);
     config.toggleKey = parseKeybind(config.toggleKeyBind);
 
@@ -48,7 +44,6 @@ void saveConfig(const Config& config){
     std::string iniPath = getConfigPath();
     const char* path = iniPath.c_str();
 
-    WritePrivateProfileStringA("keybindings","copy",config.copyKeyBind.c_str(),path);
     WritePrivateProfileStringA("keybindings","paste",config.pasteKeyBind.c_str(),path);
     WritePrivateProfileStringA("keybindings","toggle",config.toggleKeyBind.c_str(),path);
     WritePrivateProfileStringA("paste","style",config.pasteStyle.c_str(),path);

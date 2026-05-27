@@ -12,12 +12,10 @@ struct KeyBind{
 };
 
 struct Config {
-    std::string copyKeyBind;
     std::string pasteKeyBind;
     std::string toggleKeyBind;
     std::string pasteStyle;
 
-    KeyBind copyKey;
     KeyBind pasteKey;
     KeyBind toggleKey;
 };

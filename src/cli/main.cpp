@@ -89,7 +89,6 @@ void captureKeybind(const std::string& action){
 void runSetup(){
     std::cout<<"Copyline Setup\n";
     std::cout<<"----------\n\n";
-    captureKeybind("copy");
     captureKeybind("paste");
     captureKeybind("toggle");
     std::cout<<"\nSetup Completed!\n";
@@ -103,7 +102,6 @@ int main(int argc, char* argv[]){
         std::cout<<" queue show\n";
         std::cout<<" queue clear\n";
         std::cout<<" set paste style\n";
-        std::cout<<" set keybind copy <keys>\n";
         std::cout<<" set keybind paste <keys>\n";
         std::cout<<" set keybind toggle <keys>\n";
 
