@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <string>
 #include <iostream>
+#include <sstream>
 #include "ipc.h"
 #include "../queue/queue.h"
 #include "../paste/paste.h"
@@ -55,6 +56,20 @@ std::string handleCommand(const std::string& cmd){
         appConfig.pasteStyle = "single";
         saveConfig(appConfig);
         return "Paste Style Set To Single";
+    }
+
+    if(cmd.substr(0,11) == "set keybind"){
+        std::istringstream ss(cmd);
+        std::string set, keybind, action, keys;
+        ss>> set >> keybind >> action >> keys;
+
+        if(action == "copy") appConfig.copyKeyBind = keys;
+        if(action == "paste") appConfig.pasteKeyBind = keys;
+        if(action == "toggle") appConfig.toggleKeyBind = keys;
+
+        saveConfig(appConfig);
+        return "Keybind for "+ action + " Set To "+ keys +".";
+
     }
 
     return "Unkown Command";

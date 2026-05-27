@@ -40,6 +40,59 @@ std::string buildCommand(int argc,char* argv[]){
     return cmd;
 }
 
+void captureKeybind(const std::string& action){
+    std::cout<<"Press The Key Combination"<< action <<"Key Combination, Then Press ENTER To Confirm\n";
+
+    std::string captured = "";
+    bool ctrl = false, shift = false , alt = false;
+    int mainKey = 0;
+
+    while(true){
+        ctrl = GetAsyncKeyState(VK_CONTROL) & 0x8000;
+        shift = GetAsyncKeyState(VK_SHIFT) & 0x8000;
+        alt = GetAsyncKeyState(VK_MENU) & 0x8000;
+
+        if(GetAsyncKeyState(VK_RETURN) & 0x8000){
+            if(captured != "") break;
+        }
+        
+        for(int k='A';k<='Z';k++){
+            if(GetAsyncKeyState(k) &0x8000){
+                mainKey = k;
+            }
+        }
+        
+        for(int k='0';k<='9';k++){
+            if(GetAsyncKeyState(k) &0x8000){
+                mainKey = k;
+            }
+        }
+
+        if(mainKey !=0){
+            captured = "";
+            if(ctrl) captured += "Ctrl+";
+            if(shift) captured += "Shift+";
+            if(alt) captured += "Alt+";
+            captured += (char)mainKey;
+            std::cout<<"\rCaptured: "<<captured <<"   ";
+            std::flush(std::cout);
+            mainKey=0;
+        }
+        Sleep(50);
+    }
+    std::string cmd = "set keybind "+ action + " "+ captured;
+    std::cout << sendCommand(cmd)<< "\n";
+}
+
+void runSetup(){
+    std::cout<<"Copyline Setup\n";
+    std::cout<<"----------\n\n";
+    captureKeybind("copy");
+    captureKeybind("paste");
+    captureKeybind("toggle");
+    std::cout<<"\nSetup Completed!\n";
+}
+
 int main(int argc, char* argv[]){
     if(argc < 2){
         std::cout<<"Usage: copyline <commands>\n";
@@ -71,6 +124,11 @@ int main(int argc, char* argv[]){
             std::cout<<"Invalid Choice";
             return 1;
         }
+    }
+    
+    if(cmd == "setup"){
+        runSetup();
+        return 0;
     }
 
     std::cout << sendCommand(cmd) << "\n";
