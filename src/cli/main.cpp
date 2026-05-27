@@ -42,6 +42,7 @@ std::string buildCommand(int argc,char* argv[]){
 
 void captureKeybind(const std::string& action){
     std::cout<<"Press The Key Combination"<< action <<"Key Combination, Then Press ENTER To Confirm\n";
+    SetConsoleCtrlHandler(NULL, TRUE);
 
     std::string captured = "";
     bool ctrl = false, shift = false , alt = false;
@@ -82,6 +83,7 @@ void captureKeybind(const std::string& action){
     }
     std::string cmd = "set keybind "+ action + " "+ captured;
     std::cout << sendCommand(cmd)<< "\n";
+    SetConsoleCtrlHandler(NULL, FALSE);
 }
 
 void runSetup(){
