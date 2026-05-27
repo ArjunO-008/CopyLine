@@ -19,7 +19,7 @@ struct Config {
 
     KeyBind copyKey;
     KeyBind pasteKey;
-    KeyBind togglKey;
+    KeyBind toggleKey;
 };
 
 std::string getConfigPath();

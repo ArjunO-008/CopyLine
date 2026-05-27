@@ -13,10 +13,10 @@ LRESULT CALLBACK KeyBoardProc(int nCode, WPARAM wParam,LPARAM lParam){
             bool shift = GetAsyncKeyState(VK_SHIFT) & 0x8000;
             bool alt = GetAsyncKeyState(VK_MENU) & 0x8000;
 
-            if(ctrl == appConfig.togglKey.ctrl &&
-                shift == appConfig.togglKey.shift &&
-                alt == appConfig.togglKey.alt &&
-                key->vkCode == appConfig.togglKey.vkCode){
+            if(ctrl == appConfig.toggleKey.ctrl &&
+                shift == appConfig.toggleKey.shift &&
+                alt == appConfig.toggleKey.alt &&
+                key->vkCode == appConfig.toggleKey.vkCode){
                     onToggle();
                 }
 

@@ -12,7 +12,7 @@
 #define BUFFER_SIZE 512
 
 extern Config appConfig;
-extern bool isActive();
+extern bool isActive;
 void onToggle();
 
 std::string handleCommand(const std::string& cmd){
@@ -74,7 +74,7 @@ std::string handleCommand(const std::string& cmd){
         } 
         if(action == "toggle"){
           appConfig.toggleKeyBind = keys;
-          appConfig.togglKey = parseKeybind(keys);  
+          appConfig.toggleKey = parseKeybind(keys);  
         } 
 
         saveConfig(appConfig);

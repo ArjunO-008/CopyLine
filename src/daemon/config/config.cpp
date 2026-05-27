@@ -39,7 +39,7 @@ Config loadConfig(){
 
     config.copyKey = parseKeybind(config.copyKeyBind);
     config.pasteKey = parseKeybind(config.pasteKeyBind);
-    config.togglKey = parseKeybind(config.toggleKeyBind);
+    config.toggleKey = parseKeybind(config.toggleKeyBind);
 
     return config;
 }

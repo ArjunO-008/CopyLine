@@ -11,7 +11,7 @@
 HWND hwnd;
 Config appConfig;
 
-bool isActive = true;
+bool isActive = false;
 bool ignoredNextUpdate = false;
 
 
