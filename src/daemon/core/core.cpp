@@ -5,6 +5,7 @@
 #include "../input/input.h"
 #include "../paste/paste.h"
 #include "../queue/queue.h"
+#include "../tray/tray.h"
 #include <thread>
 #include <iostream>
 
@@ -17,6 +18,7 @@ bool ignoredNextUpdate = false;
 
 void onToggle(){
     isActive = !isActive;
+    updateTrayTooltip(isActive ? "CopyLine - ON" : "CopyLine - OFF");
 }
 
 void onPaste(){
@@ -42,6 +44,24 @@ LRESULT CALLBACK WindowProc(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam){
         case WM_DESTROY:
             PostQuitMessage(0);
             return 0;
+
+        case WM_TRAY:
+            if(lParam == WM_RBUTTONUP){
+                POINT pt;
+                GetCursorPos(&pt);
+
+                HMENU menu = CreatePopupMenu();
+                AppendMenuA(menu,MF_STRING,1,isActive ? "Turn OFF": "Turn ON");
+                AppendMenuA(menu,MF_SEPARATOR,0,NULL);
+                AppendMenuA(menu, MF_STRING,2,"Quit");
+
+                SetForegroundWindow(hwnd);
+                int choice = TrackPopupMenu(menu,TPM_RETURNCMD,pt.x,pt.y,0,hwnd,NULL);
+                DestroyMenu(menu);
+                if(choice == 1) onToggle();
+                if(choice == 2) PostQuitMessage(0);
+            }
+            return 0;
     }
     return DefWindowProc(hwnd,uMsg,wParam,lParam);
 }
@@ -66,6 +86,7 @@ int startApp(HINSTANCE hInstance){
         NULL,hInstance,NULL
     );
 
+    initTray(hwnd,hInstance);
     if(!hwnd) return 1;
 
     AddClipboardFormatListener(hwnd);
@@ -82,6 +103,7 @@ int startApp(HINSTANCE hInstance){
 
     unregisterHook();
     RemoveClipboardFormatListener(hwnd);
+    removeTray();
     return 0;
 
 }

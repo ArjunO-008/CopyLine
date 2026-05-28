@@ -14,7 +14,7 @@ add_executable(
     src/daemon/core/core.cpp
     src/daemon/ipc/ipc.cpp
     src/daemon/config/config.cpp
-    
+    src/daemon/tray/tray.cpp    
 )
 add_executable(
     copyline-cli
