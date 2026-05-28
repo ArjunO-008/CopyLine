@@ -102,8 +102,6 @@ int main(int argc, char* argv[]){
         std::cout<<" queue show\n";
         std::cout<<" queue clear\n";
         std::cout<<" set paste style\n";
-        std::cout<<" set keybind paste <keys>\n";
-        std::cout<<" set keybind toggle <keys>\n";
 
         return 0;
     }
