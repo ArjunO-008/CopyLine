@@ -8,6 +8,7 @@
 void initTray(HWND hwnd, HINSTANCE hInstance);
 void updateTrayTooltip(const char* Text);
 void removeTray();
+void showTrayBalloon(const char* title,const char* message);
 
 
 #endif

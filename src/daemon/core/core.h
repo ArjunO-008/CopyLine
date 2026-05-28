@@ -7,6 +7,7 @@
 int startApp(HINSTANCE hInstance);
 void onToggle();
 void onPaste();
+void onSwitchPasteStyle();
 
 extern Config appConfig;
 

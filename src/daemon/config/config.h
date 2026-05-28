@@ -14,10 +14,12 @@ struct KeyBind{
 struct Config {
     std::string pasteKeyBind;
     std::string toggleKeyBind;
+    std::string pasteStyleKeyBind;
     std::string pasteStyle;
 
     KeyBind pasteKey;
     KeyBind toggleKey;
+    KeyBind pasteStyleKey;
 };
 
 std::string getConfigPath();

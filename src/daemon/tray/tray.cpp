@@ -23,3 +23,11 @@ void updateTrayTooltip(const char* text){
 void removeTray(){
     Shell_NotifyIconA(NIM_DELETE,&nid);
 }
+
+void showTrayBalloon(const char* title,const char* message){
+    nid.uFlags |= NIF_INFO;
+    strcpy(nid.szInfoTitle,title);
+    strcpy(nid.szInfo,message);
+    nid.dwInfoFlags = NIF_INFO;
+    Shell_NotifyIconA(NIM_MODIFY,&nid);
+} 

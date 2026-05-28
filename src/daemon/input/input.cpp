@@ -26,6 +26,13 @@ LRESULT CALLBACK KeyBoardProc(int nCode, WPARAM wParam,LPARAM lParam){
                 key->vkCode == appConfig.pasteKey.vkCode){
                     onPaste();
                 }
+                
+            if(ctrl == appConfig.pasteStyleKey.ctrl &&
+                shift == appConfig.pasteStyleKey.shift &&
+                alt == appConfig.pasteStyleKey.alt &&
+                key->vkCode == appConfig.pasteStyleKey.vkCode){
+                    onSwitchPasteStyle();
+                }
         }
     }
     return CallNextHookEx(KeyboardHook,nCode,wParam,lParam);

@@ -19,6 +19,7 @@ bool ignoredNextUpdate = false;
 void onToggle(){
     isActive = !isActive;
     updateTrayTooltip(isActive ? "CopyLine - ON" : "CopyLine - OFF");
+    showTrayBalloon("CopyLine", isActive ? "Turned - ON" : "Turned - OFF");
 }
 
 void onPaste(){
@@ -27,6 +28,23 @@ void onPaste(){
         pasteAll();
         clearQueue();
     }
+}
+
+void onSwitchPasteStyle(){
+    if(currentPasteStyle == NEWLINE){
+        currentPasteStyle = SEQUENTIAL;
+        showTrayBalloon("CopyLine","Paste Style: Sequential");
+        appConfig.pasteStyle = "sequential";
+    }else if(currentPasteStyle == SEQUENTIAL){
+        currentPasteStyle = SINGLE;
+        showTrayBalloon("CopyLine","Paste Style: Single");
+        appConfig.pasteStyle = "single";
+    }else{
+        currentPasteStyle = NEWLINE;
+        showTrayBalloon("CopyLine","Paste Style: Newline");
+        appConfig.pasteStyle = "newline";
+    }
+    saveConfig(appConfig);
 }
 
 LRESULT CALLBACK WindowProc(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam){

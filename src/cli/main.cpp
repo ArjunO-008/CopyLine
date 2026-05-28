@@ -89,8 +89,9 @@ void captureKeybind(const std::string& action){
 void runSetup(){
     std::cout<<"Copyline Setup\n";
     std::cout<<"----------\n\n";
-    captureKeybind("paste");
     captureKeybind("toggle");
+    captureKeybind("paste");
+    captureKeybind("pastestyle");
     std::cout<<"\nSetup Completed!\n";
 }
 

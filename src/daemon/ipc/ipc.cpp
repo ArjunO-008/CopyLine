@@ -72,6 +72,10 @@ std::string handleCommand(const std::string& cmd){
           appConfig.toggleKeyBind = keys;
           appConfig.toggleKey = parseKeybind(keys);  
         } 
+        if(action == "pastestyle"){
+            appConfig.pasteStyleKeyBind = keys;
+            appConfig.pasteStyleKey = parseKeybind(keys);
+        }
 
         saveConfig(appConfig);
         return "Keybind for "+ action + " Set To "+ keys +".";

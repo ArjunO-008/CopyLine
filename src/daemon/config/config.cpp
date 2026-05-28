@@ -34,8 +34,12 @@ Config loadConfig(){
     GetPrivateProfileStringA("paste","style","newline",buffer,256,path);
     config.pasteStyle = buffer;
 
+    GetPrivateProfileStringA("keybindings","pastestyle","Ctrl+Shift+S",buffer,256,path);
+    config.pasteStyleKeyBind = buffer;
+
     config.pasteKey = parseKeybind(config.pasteKeyBind);
     config.toggleKey = parseKeybind(config.toggleKeyBind);
+    config.pasteStyleKey = parseKeybind(config.pasteStyleKeyBind);
 
     return config;
 }
@@ -47,7 +51,7 @@ void saveConfig(const Config& config){
     WritePrivateProfileStringA("keybindings","paste",config.pasteKeyBind.c_str(),path);
     WritePrivateProfileStringA("keybindings","toggle",config.toggleKeyBind.c_str(),path);
     WritePrivateProfileStringA("paste","style",config.pasteStyle.c_str(),path);
-}
+    WritePrivateProfileStringA("keybindings","pastestyle",config.pasteStyleKeyBind.c_str(),path);}
 
 KeyBind parseKeybind(const std::string& keybind){
     KeyBind kb = {false,false,false,0};
