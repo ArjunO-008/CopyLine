@@ -28,6 +28,7 @@ void showTrayBalloon(const char* title,const char* message){
     nid.uFlags |= NIF_INFO;
     strcpy(nid.szInfoTitle,title);
     strcpy(nid.szInfo,message);
-    nid.dwInfoFlags = NIF_INFO;
+    nid.dwInfoFlags = NIIF_INFO;
     Shell_NotifyIconA(NIM_MODIFY,&nid);
+    nid.uFlags &= ~NIF_INFO;
 } 
